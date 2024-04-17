@@ -1,11 +1,14 @@
 package com.mysite.sbb;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -27,6 +30,9 @@ class SbbApplicationTest {
         q2.setContent("id는 자동으로 생성되나요?");
         q2.setCreateDate(LocalDateTime.now());
         this.questionRepository.save(q2);  // 두번째 질문 저장
+
+        List<Question> all = questionRepository.findAll();
+        assertThat(all.size()).isEqualTo(2);
     }
 
 }
