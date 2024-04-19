@@ -2,6 +2,7 @@ package com.mysite.sbb.question;
 
 import com.mysite.sbb.answer.Answer;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,4 +33,11 @@ public class Question {
 
     @OneToMany(mappedBy = "question",cascade = CascadeType.REMOVE)
     private List<Answer> answerList = new ArrayList<>();
+
+
+    public Question(String subject, String content, LocalDateTime createDate) {
+        this.subject = subject;
+        this.content = content;
+        this.createDate = createDate;
+    }
 }
