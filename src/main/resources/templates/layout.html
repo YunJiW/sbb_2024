@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
     <!-- sbb CSS -->
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+
+
     <title>Hello, sbb!</title>
 </head>
 <body>
@@ -30,5 +32,7 @@
 <!-- 기본 템플릿 안에 삽입될 내용 Start -->
 <th:block layout:fragment="content"></th:block>
 <!-- 기본 템플릿 안에 삽입될 내용 End -->
+<!-- Bootstrap JS -->
+<script th:src="@{/bootstrap.min.js}"></script>
 </body>
 </html>
