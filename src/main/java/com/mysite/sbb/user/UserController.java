@@ -40,12 +40,13 @@ public class UserController {
         try {
             userService.create(userCreateForm.getUsername(), userCreateForm.getEmail(), userCreateForm.getPassword1());
         } catch (DataIntegrityViolationException e) {
-            bindingResult.rejectValue("signupFailed", "이미 등록된 사용자입니다.");
+            log.error("중복 회원가입 진행 오류");
+            bindingResult.reject("signupFailed", "이미 등록된 사용자입니다.");
 
             return "signup_form";
         } catch (Exception e) {
             e.printStackTrace();
-            bindingResult.rejectValue("signupFailed", e.getMessage());
+            bindingResult.reject("signupFailed", e.getMessage());
             return "signup_form";
         }
         log.info("회원가입 완료");
