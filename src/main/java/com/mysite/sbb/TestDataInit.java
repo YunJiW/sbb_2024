@@ -2,6 +2,7 @@ package com.mysite.sbb;
 
 import com.mysite.sbb.question.Question;
 import com.mysite.sbb.question.QuestionRepository;
+import com.mysite.sbb.question.QuestionService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 public class TestDataInit {
 
     private final QuestionRepository questionRepository;
+    private final QuestionService questionService;
 
 
     @PostConstruct
@@ -23,5 +25,11 @@ public class TestDataInit {
         question.setCreateDate(LocalDateTime.now());
 
         questionRepository.save(question);
+
+        for (int idx = 1; idx <= 300; idx++) {
+            String subject = String.format("테스트 데이터 입니다:[%03d]", idx);
+            String content = "내용무";
+            questionService.create(subject, content);
+        }
     }
 }
