@@ -1,5 +1,6 @@
 package com.mysite.sbb.question;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mysite.sbb.answer.Answer;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -31,6 +32,7 @@ public class Question {
 
     private LocalDateTime createDate;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "question",cascade = CascadeType.REMOVE)
     private List<Answer> answerList = new ArrayList<>();
 
