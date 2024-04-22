@@ -2,6 +2,7 @@ package com.mysite.sbb.user;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
 
     private final UserService userService;
@@ -28,6 +30,7 @@ public class UserController {
             return "signup_form";
         }
 
+        log.info("회원가입 진행");
         if (!userCreateForm.getPassword1().equals(userCreateForm.getPassword2())) {
             bindingResult.rejectValue("password2", "passwordIncorrect",
                     "2개의 패스워드가 일치하지 않습니다.");
@@ -45,6 +48,7 @@ public class UserController {
             bindingResult.rejectValue("signupFailed", e.getMessage());
             return "signup_form";
         }
+        log.info("회원가입 완료");
         return "redirect:/";
     }
 }
