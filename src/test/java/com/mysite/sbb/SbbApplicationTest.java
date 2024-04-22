@@ -37,9 +37,9 @@ class SbbApplicationTest {
         this.questionRepository.save(q2);  // 두번째 질문 저장
 
         List<Question> all = questionRepository.findAll();
-        assertThat(all.size()).isEqualTo(2);
+        assertThat(all.size()).isEqualTo(303);
 
-        Optional<Question> byId = questionRepository.findById(2);
+        Optional<Question> byId = questionRepository.findById(303);
         if (byId.isPresent()) {
             Question q = byId.get();
             assertThat(q.getSubject()).isEqualTo("스프링부트 모델 질문입니다.");
@@ -54,7 +54,7 @@ class SbbApplicationTest {
 
 
         Question findQuestion = questionRepository.findBySubject("sbb가 무엇인가요?");
-        assertThat(findQuestion.getId()).isEqualTo(1);
+        assertThat(findQuestion.getId()).isEqualTo(302);
     }
 
 }
