@@ -29,6 +29,8 @@ public class Answer {
 
     private LocalDateTime createDate;
 
+    private LocalDateTime modifyDate;
+
 
 
     @ManyToOne(fetch = FetchType.LAZY)
