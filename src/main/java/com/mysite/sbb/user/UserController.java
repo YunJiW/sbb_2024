@@ -52,4 +52,10 @@ public class UserController {
         log.info("회원가입 완료");
         return "redirect:/";
     }
+
+    @GetMapping("/login")
+    public String login(){
+        return "login_form";
+    }
+
 }
