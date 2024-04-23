@@ -23,12 +23,6 @@ public class QuestionService {
     private final QuestionRepository questionRepository;
 
 
-    public void create(String subject, String content) {
-        Question q = new Question(subject, content, LocalDateTime.now());
-        questionRepository.save(q);
-
-    }
-
     public void create(String subject, String content, SiteUser author) {
         Question q = new Question(subject, content, LocalDateTime.now(), author);
         questionRepository.save(q);

@@ -42,12 +42,6 @@ public class Question {
     private List<Answer> answerList = new ArrayList<>();
 
 
-    public Question(String subject, String content, LocalDateTime createDate) {
-        this.subject = subject;
-        this.content = content;
-        this.createDate = createDate;
-    }
-
     public Question(String subject, String content, LocalDateTime createDate, SiteUser author) {
         this.subject = subject;
         this.content = content;
