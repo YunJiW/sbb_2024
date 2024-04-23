@@ -2,6 +2,7 @@ package com.mysite.sbb.question;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mysite.sbb.answer.Answer;
+import com.mysite.sbb.user.SiteUser;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -22,6 +23,7 @@ public class Question {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "question_id")
     private Integer id;
 
     @Column(length = 200)
@@ -29,6 +31,9 @@ public class Question {
 
     @Column(columnDefinition = "TEXT")
     private String content;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private SiteUser author;
 
     private LocalDateTime createDate;
 
