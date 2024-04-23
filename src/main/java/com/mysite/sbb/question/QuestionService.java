@@ -1,6 +1,7 @@
 package com.mysite.sbb.question;
 
 import com.mysite.sbb.exception.DataNotFoundException;
+import com.mysite.sbb.user.SiteUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -28,10 +29,16 @@ public class QuestionService {
 
     }
 
-    public Page<Question> getList(int page){
+    public void create(String subject, String content, SiteUser author) {
+        Question q = new Question(subject, content, LocalDateTime.now(), author);
+        questionRepository.save(q);
+
+    }
+
+    public Page<Question> getList(int page) {
         List<Sort.Order> sort = new ArrayList<>();
         sort.add(Sort.Order.desc("createDate"));
-        Pageable pageable = PageRequest.of(page,10,Sort.by(sort));
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(sort));
         return questionRepository.findAll(pageable);
     }
 

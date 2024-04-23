@@ -47,4 +47,11 @@ public class Question {
         this.content = content;
         this.createDate = createDate;
     }
+
+    public Question(String subject, String content, LocalDateTime createDate, SiteUser author) {
+        this.subject = subject;
+        this.content = content;
+        this.createDate = createDate;
+        this.author = author;
+    }
 }
