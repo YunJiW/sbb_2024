@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mysite.sbb.answer.Answer;
 import com.mysite.sbb.user.SiteUser;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static jakarta.persistence.GenerationType.*;
+import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Getter
 @Setter
@@ -37,8 +36,10 @@ public class Question {
 
     private LocalDateTime createDate;
 
+    private LocalDateTime modifyDate;
+
     @JsonIgnore
-    @OneToMany(mappedBy = "question",cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     private List<Answer> answerList = new ArrayList<>();
 
 
@@ -47,5 +48,11 @@ public class Question {
         this.content = content;
         this.createDate = createDate;
         this.author = author;
+    }
+
+    public void update(String subject, String content) {
+        this.subject = subject;
+        this.content = content;
+        modifyDate = LocalDateTime.now();
     }
 }
