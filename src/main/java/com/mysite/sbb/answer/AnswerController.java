@@ -51,7 +51,7 @@ public class AnswerController {
     @GetMapping("/modify/{id}")
     public String answerModify(AnswerForm answerForm, @PathVariable("id") Integer id, Principal principal) {
 
-        Answer answer = answerService.getAnser(id);
+        Answer answer = answerService.getAnswer(id);
         if (!answer.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
@@ -68,7 +68,7 @@ public class AnswerController {
             return "answer_form";
         }
 
-        Answer answer = answerService.getAnser(id);
+        Answer answer = answerService.getAnswer(id);
         if (!answer.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
@@ -79,7 +79,7 @@ public class AnswerController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{id}")
     public String answerDelete(Principal principal, @PathVariable("id") Integer id) {
-        Answer answer = answerService.getAnser(id);
+        Answer answer = answerService.getAnswer(id);
 
         if (!answer.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
