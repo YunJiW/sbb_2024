@@ -36,4 +36,9 @@ public class Answer {
     @ManyToOne(fetch = FetchType.LAZY)
     private Question question;
 
+    public void update(String content){
+        this.content = content;
+        modifyDate = LocalDateTime.now();
+    }
+
 }

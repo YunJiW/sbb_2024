@@ -33,8 +33,13 @@ public class QuestionService {
     }
 
     @Transactional
-    public void modify(Question question,String subject,String content){
-        question.update(subject,content);
+    public void modify(Question question, String subject, String content) {
+        question.update(subject, content);
+    }
+
+    @Transactional
+    public void delete(Question question) {
+        questionRepository.delete(question);
     }
 
     public Page<Question> getList(int page) {
