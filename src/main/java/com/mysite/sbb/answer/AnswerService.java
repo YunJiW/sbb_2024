@@ -28,19 +28,24 @@ public class AnswerService {
         answerRepository.save(answer);
     }
 
-    public Answer getAnser(Integer id){
+    public Answer getAnser(Integer id) {
         Optional<Answer> answer = answerRepository.findById(id);
 
-        if(answer.isPresent()){
+        if (answer.isPresent()) {
             return answer.get();
-        }else{
+        } else {
             throw new DataNotFoundException("answer not found");
         }
     }
 
     @Transactional
-    public void modify(Answer answer,String content){
+    public void modify(Answer answer, String content) {
         answer.update(content);
+    }
+
+    @Transactional
+    public void delete(Answer answer) {
+        answerRepository.delete(answer);
     }
 
 }
