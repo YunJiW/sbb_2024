@@ -28,7 +28,7 @@ public class AnswerService {
         answerRepository.save(answer);
     }
 
-    public Answer getAnser(Integer id) {
+    public Answer getAnswer(Integer id) {
         Optional<Answer> answer = answerRepository.findById(id);
 
         if (answer.isPresent()) {
