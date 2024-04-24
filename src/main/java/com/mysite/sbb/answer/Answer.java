@@ -1,6 +1,8 @@
 package com.mysite.sbb.answer;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mysite.sbb.question.Question;
+import com.mysite.sbb.recommand.AnswerReco;
 import com.mysite.sbb.user.SiteUser;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -8,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static jakarta.persistence.GenerationType.*;
 
@@ -35,6 +39,10 @@ public class Answer {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Question question;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "answer" ,cascade = CascadeType.REMOVE)
+    private List<AnswerReco> answerRecoList = new ArrayList<>();
 
     public void update(String content){
         this.content = content;
