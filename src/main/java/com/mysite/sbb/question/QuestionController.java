@@ -1,5 +1,6 @@
 package com.mysite.sbb.question;
 
+import com.mysite.sbb.CommonUtil;
 import com.mysite.sbb.answer.AnswerForm;
 import com.mysite.sbb.user.SiteUser;
 import com.mysite.sbb.user.UserService;
@@ -24,6 +25,8 @@ public class QuestionController {
     private final QuestionService questionService;
 
     private final UserService userService;
+
+    private final CommonUtil commonUtil;
 
     @GetMapping("/list")
     public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
@@ -56,7 +59,8 @@ public class QuestionController {
             return "question_form";
         }
         SiteUser siteUser = userService.getUser(principal.getName());
-        questionService.create(questionForm.getSubject(), questionForm.getContent(), siteUser);
+        String convertContent = commonUtil.markdown(questionForm.getContent());
+        questionService.create(questionForm.getSubject(), convertContent, siteUser);
         return "redirect:/question/list";
     }
 
@@ -87,7 +91,8 @@ public class QuestionController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
 
-        questionService.modify(question, questionForm.getSubject(), questionForm.getContent());
+        String convertContent = commonUtil.markdown(questionForm.getContent());
+        questionService.modify(question, questionForm.getSubject(), convertContent);
 
         return String.format("redirect:/question/detail/%s", id);
 

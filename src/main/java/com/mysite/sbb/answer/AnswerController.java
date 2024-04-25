@@ -1,5 +1,6 @@
 package com.mysite.sbb.answer;
 
+import com.mysite.sbb.CommonUtil;
 import com.mysite.sbb.question.Question;
 import com.mysite.sbb.question.QuestionService;
 import com.mysite.sbb.user.SiteUser;
@@ -28,6 +29,8 @@ public class AnswerController {
     private final UserService userService;
     private final AnswerService answerService;
 
+    private final CommonUtil commonUtil;
+
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create/{id}")
     public String createAnswer(Model model, @PathVariable("id") Integer id,
@@ -42,7 +45,8 @@ public class AnswerController {
         }
 
 
-        Answer answer = answerService.create(question, answerForm.getContent(), siteUser);
+        String covertcontent = commonUtil.markdown(answerForm.getContent());
+        Answer answer = answerService.create(question,covertcontent, siteUser);
 
         return String.format("redirect:/question/detail/%s#answer_%s", id,answer.getId());
     }
@@ -72,7 +76,8 @@ public class AnswerController {
         if (!answer.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
-        answerService.modify(answer, answerForm.getContent());
+        String covertcontent = commonUtil.markdown(answerForm.getContent());
+        answerService.modify(answer, covertcontent);
         return String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion().getId(),answer.getId());
     }
 
