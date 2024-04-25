@@ -1,12 +1,13 @@
 package com.mysite.sbb.question;
 
+import com.mysite.sbb.question.repository.QuestionRepositoryCustom;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface QuestionRepository extends JpaRepository<Question, Integer> {
+public interface QuestionRepository extends JpaRepository<Question, Integer>, QuestionRepositoryCustom {
 
     Question findBySubject(String subject);
 

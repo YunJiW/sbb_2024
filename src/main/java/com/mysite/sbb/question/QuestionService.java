@@ -47,11 +47,11 @@ public class QuestionService {
         questionRepository.delete(question);
     }
 
-    public Page<Question> getList(int page) {
-        List<Sort.Order> sort = new ArrayList<>();
-        sort.add(Sort.Order.desc("createDate"));
-        Pageable pageable = PageRequest.of(page, 10, Sort.by(sort));
-        return questionRepository.findAll(pageable);
+    public Page<Question> getList(int page,String sub) {
+        Pageable pageable = PageRequest.of(page, 10);
+
+
+        return questionRepository.search(sub,pageable);
     }
 
 
