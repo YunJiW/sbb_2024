@@ -49,6 +49,6 @@ public class AnswerRecoController {
         }
 
         log.info("답변 추천 종료");
-        return String.format("redirect:/question/detail/%s", answer.getQuestion().getId());
+        return String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion().getId(),answer.getId());
     }
 }
