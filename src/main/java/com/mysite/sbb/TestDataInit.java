@@ -3,6 +3,8 @@ package com.mysite.sbb;
 import com.mysite.sbb.question.Question;
 import com.mysite.sbb.question.QuestionRepository;
 import com.mysite.sbb.question.QuestionService;
+import com.mysite.sbb.user.SiteUser;
+import com.mysite.sbb.user.UserService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -15,6 +17,8 @@ public class TestDataInit {
 
     private final QuestionRepository questionRepository;
     private final QuestionService questionService;
+
+    private final UserService userService;
 
 
     @PostConstruct
@@ -31,5 +35,9 @@ public class TestDataInit {
             String content = "내용무";
             questionService.create(subject, content,null);
         }
+
+        //테스트용회원
+        userService.create("admin","ss@naver.com","1234");
+
     }
 }
