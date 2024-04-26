@@ -3,7 +3,7 @@ package com.mysite.sbb.recommand.controller;
 import com.mysite.sbb.answer.Answer;
 import com.mysite.sbb.answer.service.AnswerService;
 import com.mysite.sbb.recommand.AnswerReco;
-import com.mysite.sbb.recommand.service.AnswerRecoService;
+import com.mysite.sbb.recommand.AnswerRecoService;
 import com.mysite.sbb.user.SiteUser;
 import com.mysite.sbb.user.service.UserService;
 import lombok.RequiredArgsConstructor;

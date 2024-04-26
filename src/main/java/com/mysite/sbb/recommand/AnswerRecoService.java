@@ -1,4 +1,4 @@
-package com.mysite.sbb.recommand.service;
+package com.mysite.sbb.recommand;
 
 
 import com.mysite.sbb.answer.Answer;
