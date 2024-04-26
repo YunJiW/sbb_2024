@@ -1,5 +1,6 @@
-package com.mysite.sbb.question;
+package com.mysite.sbb.question.repository;
 
+import com.mysite.sbb.question.Question;
 import com.mysite.sbb.question.repository.QuestionRepositoryCustom;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

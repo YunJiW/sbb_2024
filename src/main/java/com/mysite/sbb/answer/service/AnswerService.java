@@ -1,5 +1,7 @@
-package com.mysite.sbb.answer;
+package com.mysite.sbb.answer.service;
 
+import com.mysite.sbb.answer.Answer;
+import com.mysite.sbb.answer.repository.AnswerRepository;
 import com.mysite.sbb.exception.DataNotFoundException;
 import com.mysite.sbb.question.Question;
 import com.mysite.sbb.user.SiteUser;

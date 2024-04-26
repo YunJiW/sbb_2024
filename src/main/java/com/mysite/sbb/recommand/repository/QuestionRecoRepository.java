@@ -1,5 +1,6 @@
-package com.mysite.sbb.recommand;
+package com.mysite.sbb.recommand.repository;
 
+import com.mysite.sbb.recommand.QuestionReco;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

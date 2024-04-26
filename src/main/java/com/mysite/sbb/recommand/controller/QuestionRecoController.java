@@ -1,9 +1,11 @@
-package com.mysite.sbb.recommand;
+package com.mysite.sbb.recommand.controller;
 
 import com.mysite.sbb.question.Question;
-import com.mysite.sbb.question.QuestionService;
+import com.mysite.sbb.question.service.QuestionService;
+import com.mysite.sbb.recommand.QuestionReco;
+import com.mysite.sbb.recommand.service.QuestionRecoService;
 import com.mysite.sbb.user.SiteUser;
-import com.mysite.sbb.user.UserService;
+import com.mysite.sbb.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;

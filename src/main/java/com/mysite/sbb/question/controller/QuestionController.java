@@ -1,9 +1,12 @@
-package com.mysite.sbb.question;
+package com.mysite.sbb.question.controller;
 
 import com.mysite.sbb.CommonUtil;
 import com.mysite.sbb.answer.AnswerForm;
+import com.mysite.sbb.question.Question;
+import com.mysite.sbb.question.QuestionForm;
+import com.mysite.sbb.question.service.QuestionService;
 import com.mysite.sbb.user.SiteUser;
-import com.mysite.sbb.user.UserService;
+import com.mysite.sbb.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

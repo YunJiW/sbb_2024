@@ -1,7 +1,9 @@
-package com.mysite.sbb.recommand;
+package com.mysite.sbb.recommand.service;
 
 
 import com.mysite.sbb.answer.Answer;
+import com.mysite.sbb.recommand.AnswerReco;
+import com.mysite.sbb.recommand.repository.AnswerRecoRepository;
 import com.mysite.sbb.user.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
