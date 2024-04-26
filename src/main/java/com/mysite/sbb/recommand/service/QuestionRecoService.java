@@ -1,4 +1,4 @@
-package com.mysite.sbb.recommand;
+package com.mysite.sbb.recommand.service;
 
 import com.mysite.sbb.question.Question;
 import com.mysite.sbb.recommand.QuestionReco;
@@ -18,10 +18,7 @@ public class QuestionRecoService {
 
     @Transactional
     public void insert(SiteUser user, Question question){
-        QuestionReco questionReco = new QuestionReco();
-        questionReco.setUser(user);
-        questionReco.setQuestion(question);
-
+        QuestionReco questionReco = new QuestionReco(user,question);
         questionRecoRepository.save(questionReco);
     }
 

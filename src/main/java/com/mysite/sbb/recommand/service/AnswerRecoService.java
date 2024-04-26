@@ -1,4 +1,4 @@
-package com.mysite.sbb.recommand;
+package com.mysite.sbb.recommand.service;
 
 
 import com.mysite.sbb.answer.Answer;
@@ -20,9 +20,7 @@ public class AnswerRecoService {
     //추천을 넣어주기.
     @Transactional
     public void insert(Answer answer, SiteUser siteUser) {
-        AnswerReco answerReco = new AnswerReco();
-        answerReco.setAnswer(answer);
-        answerReco.setUser(siteUser);
+        AnswerReco answerReco = new AnswerReco(siteUser,answer);
         answerRecoRepository.save(answerReco);
     }
 

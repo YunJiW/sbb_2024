@@ -24,4 +24,9 @@ public class QuestionReco {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Question question;
+
+    public QuestionReco(SiteUser user, Question question) {
+        this.user = user;
+        this.question = question;
+    }
 }
