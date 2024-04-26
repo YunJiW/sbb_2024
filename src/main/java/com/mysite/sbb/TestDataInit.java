@@ -1,10 +1,9 @@
 package com.mysite.sbb;
 
 import com.mysite.sbb.question.Question;
-import com.mysite.sbb.question.QuestionRepository;
-import com.mysite.sbb.question.QuestionService;
-import com.mysite.sbb.user.SiteUser;
-import com.mysite.sbb.user.UserService;
+import com.mysite.sbb.question.repository.QuestionRepository;
+import com.mysite.sbb.question.service.QuestionService;
+import com.mysite.sbb.user.service.UserService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

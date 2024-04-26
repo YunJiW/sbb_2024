@@ -1,11 +1,15 @@
-package com.mysite.sbb.question;
+package com.mysite.sbb.question.controller;
 
 import com.mysite.sbb.CommonUtil;
 import com.mysite.sbb.answer.AnswerForm;
+import com.mysite.sbb.question.Question;
+import com.mysite.sbb.question.QuestionForm;
+import com.mysite.sbb.question.service.QuestionService;
 import com.mysite.sbb.user.SiteUser;
-import com.mysite.sbb.user.UserService;
+import com.mysite.sbb.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,6 +24,7 @@ import java.security.Principal;
 @Controller
 @RequestMapping("/question")
 @RequiredArgsConstructor
+@Slf4j
 public class QuestionController {
 
     private final QuestionService questionService;
@@ -29,11 +34,15 @@ public class QuestionController {
     private final CommonUtil commonUtil;
 
     @GetMapping("/list")
-    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
+    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
+                       @RequestParam(value = "sub",defaultValue = "")String sub) {
 
-        Page<Question> paging = questionService.getList(page);
+        Page<Question> paging = questionService.getList(page,sub);
+
+        log.info("게시물 총 개수 =  {}",paging.getTotalElements());
 
         model.addAttribute("paging", paging);
+        model.addAttribute("sub",sub);
         return "question_list";
     }
 

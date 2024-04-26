@@ -23,4 +23,9 @@ public class AnswerReco {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Answer answer;
+
+    public AnswerReco(SiteUser user, Answer answer) {
+        this.user = user;
+        this.answer = answer;
+    }
 }

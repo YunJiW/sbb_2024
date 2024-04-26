@@ -1,10 +1,13 @@
-package com.mysite.sbb.answer;
+package com.mysite.sbb.answer.controller;
 
 import com.mysite.sbb.CommonUtil;
+import com.mysite.sbb.answer.Answer;
+import com.mysite.sbb.answer.AnswerForm;
+import com.mysite.sbb.answer.service.AnswerService;
 import com.mysite.sbb.question.Question;
-import com.mysite.sbb.question.QuestionService;
+import com.mysite.sbb.question.service.QuestionService;
 import com.mysite.sbb.user.SiteUser;
-import com.mysite.sbb.user.UserService;
+import com.mysite.sbb.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

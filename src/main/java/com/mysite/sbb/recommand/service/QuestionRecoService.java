@@ -1,6 +1,8 @@
-package com.mysite.sbb.recommand;
+package com.mysite.sbb.recommand.service;
 
 import com.mysite.sbb.question.Question;
+import com.mysite.sbb.recommand.QuestionReco;
+import com.mysite.sbb.recommand.repository.QuestionRecoRepository;
 import com.mysite.sbb.user.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,10 +18,7 @@ public class QuestionRecoService {
 
     @Transactional
     public void insert(SiteUser user, Question question){
-        QuestionReco questionReco = new QuestionReco();
-        questionReco.setUser(user);
-        questionReco.setQuestion(question);
-
+        QuestionReco questionReco = new QuestionReco(user,question);
         questionRecoRepository.save(questionReco);
     }
 

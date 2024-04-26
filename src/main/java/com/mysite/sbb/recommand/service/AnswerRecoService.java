@@ -1,7 +1,9 @@
-package com.mysite.sbb.recommand;
+package com.mysite.sbb.recommand.service;
 
 
 import com.mysite.sbb.answer.Answer;
+import com.mysite.sbb.recommand.AnswerReco;
+import com.mysite.sbb.recommand.repository.AnswerRecoRepository;
 import com.mysite.sbb.user.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,9 +20,7 @@ public class AnswerRecoService {
     //추천을 넣어주기.
     @Transactional
     public void insert(Answer answer, SiteUser siteUser) {
-        AnswerReco answerReco = new AnswerReco();
-        answerReco.setAnswer(answer);
-        answerReco.setUser(siteUser);
+        AnswerReco answerReco = new AnswerReco(siteUser,answer);
         answerRecoRepository.save(answerReco);
     }
 
