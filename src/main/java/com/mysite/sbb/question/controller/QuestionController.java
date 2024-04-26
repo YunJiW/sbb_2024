@@ -1,7 +1,9 @@
 package com.mysite.sbb.question.controller;
 
 import com.mysite.sbb.CommonUtil;
+import com.mysite.sbb.answer.Answer;
 import com.mysite.sbb.answer.AnswerForm;
+import com.mysite.sbb.answer.service.AnswerService;
 import com.mysite.sbb.question.Question;
 import com.mysite.sbb.question.QuestionForm;
 import com.mysite.sbb.question.service.QuestionService;
@@ -29,6 +31,8 @@ public class QuestionController {
 
     private final QuestionService questionService;
 
+    private final AnswerService answerService;
+
     private final UserService userService;
 
     private final CommonUtil commonUtil;
@@ -48,9 +52,12 @@ public class QuestionController {
 
     @GetMapping("/detail/{id}")
     public String detail(Model model, @PathVariable("id") Integer id,
-                         AnswerForm answerForm) {
+                         AnswerForm answerForm,@RequestParam(value = "answerPage",defaultValue = "0")int answerPage) {
         Question question = questionService.getQuestion(id);
+
+        Page<Answer> answerPaging = answerService.getList(question, answerPage);
         model.addAttribute("question", question);
+        model.addAttribute("answerPaging",answerPaging);
         return "question_detail";
     }
 
