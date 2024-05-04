@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
-public class coment {
+public class Coment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +29,7 @@ public class coment {
     @ManyToOne(fetch = FetchType.LAZY)
     private Answer answer;
 
-    public coment(Integer id, String content, LocalDateTime createDate) {
+    public Coment(Integer id, String content, LocalDateTime createDate) {
         this.id = id;
         this.content = content;
         this.createDate = createDate;

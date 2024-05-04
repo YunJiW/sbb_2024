@@ -2,7 +2,7 @@ package com.mysite.sbb.question;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mysite.sbb.answer.Answer;
-import com.mysite.sbb.comment.coment;
+import com.mysite.sbb.comment.Coment;
 import com.mysite.sbb.recommand.QuestionReco;
 import com.mysite.sbb.user.SiteUser;
 import jakarta.persistence.*;
@@ -51,7 +51,7 @@ public class Question {
 
     @JsonIgnore
     @OneToMany(mappedBy = "question",cascade = CascadeType.REMOVE)
-    private List<coment> comentList = new ArrayList<>();
+    private List<Coment> comentList = new ArrayList<>();
 
 
     public Question(String subject, String content, LocalDateTime createDate, SiteUser author) {

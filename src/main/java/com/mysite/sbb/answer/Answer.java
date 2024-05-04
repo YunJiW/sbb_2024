@@ -1,7 +1,7 @@
 package com.mysite.sbb.answer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.mysite.sbb.comment.coment;
+import com.mysite.sbb.comment.Coment;
 import com.mysite.sbb.question.Question;
 import com.mysite.sbb.recommand.AnswerReco;
 import com.mysite.sbb.user.SiteUser;
@@ -47,7 +47,7 @@ public class Answer {
 
     @JsonIgnore
     @OneToMany(mappedBy = "answer" ,cascade = CascadeType.REMOVE)
-    private List<coment> commentList = new ArrayList<>();
+    private List<Coment> commentList = new ArrayList<>();
 
     public void update(String content){
         this.content = content;
