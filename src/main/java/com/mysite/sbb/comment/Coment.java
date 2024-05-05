@@ -4,12 +4,14 @@ package com.mysite.sbb.comment;
 import com.mysite.sbb.answer.Answer;
 import com.mysite.sbb.question.Question;
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
+@Getter
 public class Coment {
 
     @Id
@@ -29,9 +31,21 @@ public class Coment {
     @ManyToOne(fetch = FetchType.LAZY)
     private Answer answer;
 
-    public Coment(Integer id, String content, LocalDateTime createDate) {
-        this.id = id;
+    public Coment(String content, LocalDateTime createDate) {
         this.content = content;
         this.createDate = createDate;
     }
+
+    public void AddQuestion(Question question){
+        this.question = question;
+    }
+
+    public void AddAnswer(Answer answer){
+        this.answer =answer;
+    }
+
+    public void updateComent(String content){
+        this.content = content;
+    }
+
 }
