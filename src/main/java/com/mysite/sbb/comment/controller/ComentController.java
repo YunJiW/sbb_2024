@@ -115,13 +115,28 @@ public class ComentController {
         }
 
         comentService.modify(coment, comentForm.getContent());
-        Question question;
         if (coment.getQuestion() == null) {
-            question = coment.getAnswer().getQuestion();
+            return String.format("redirect:/question/detail/%s", coment.getAnswer().getQuestion().getId());
         } else {
-            question = coment.getQuestion();
+            return String.format("redirect:/question/detail/%s", coment.getQuestion().getId());
+        }
+    }
+
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("delete/{id}")
+    public String ComentDelete(Principal principal, @PathVariable("id") Integer id) {
+        Coment coment = comentService.getComent(id);
+
+        if (!coment.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
         }
 
-        return String.format("redirect:/question/detail/%s", question.getId());
+        comentService.delete(coment);
+        if (coment.getQuestion() == null) {
+            return String.format("redirect:/question/detail/%s", coment.getAnswer().getQuestion().getId());
+        } else {
+            return String.format("redirect:/question/detail/%s", coment.getQuestion().getId());
+        }
     }
 }
