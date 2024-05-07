@@ -47,7 +47,7 @@ public class Answer {
 
     @JsonIgnore
     @OneToMany(mappedBy = "answer" ,cascade = CascadeType.REMOVE)
-    private List<Coment> commentList = new ArrayList<>();
+    private List<Coment> comentList = new ArrayList<>();
 
     public void update(String content){
         this.content = content;

@@ -87,6 +87,24 @@
                    th:if="${answer.author != null and #authentication.getPrincipal().getUsername() == answer.author.username}"
                    th:text="삭제"></a>
             </div>
+            <div class="mt-3" th:if="${not #lists.isEmpty(answer.comentList)}">
+                <div th:each="coment,index : ${answer.comentList}" class="coment py-2 text-muted">
+                    <span style="white-space: pre-line;" th:text="${coment.content}"></span>
+                    <span th:if="${coment.modifyDate != null}"
+                          th:text="| - ${coment.author.username}, ${#temporals.format(coment.createDate, 'yyyy-MM-dd HH:mm')} (수정: ${#temporals.format(coment.modifyDate, 'yyyy-MM-dd HH:mm')})|"></span>
+                    <span th:if="${coment.modifyDate == null}"
+                          th:text="| - ${coment.author.username}, ${#temporals.format(coment.createDate, 'yyyy-MM-dd HH:mm')}|"></span>
+                    <a sec:authorize="isAuthenticated()"
+                       th:if="${#authentication.getPrincipal().getUsername() == coment.author.username}"
+                       th:href="@{|/coment/modify/${coment.id}|}" class="small">수정</a>,
+                    <a sec:authorize="isAuthenticated()"
+                       th:if="${#authentication.getPrincipal().getUsername() == coment.author.username}"
+                       href="javascript:void(0);" class="small delete" th:data-uri="@{|/coment/delete/${coment.id}|}">삭제</a>
+                </div>
+            </div>
+            <div>
+                <a th:href="@{|/coment/create/answer/${answer.id}|}" class="small"><small>댓글 추가 ..</small></a>
+            </div>
         </div>
     </div>
     <!-- 답변 반복 끝  -->

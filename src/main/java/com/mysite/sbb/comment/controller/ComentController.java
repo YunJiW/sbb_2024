@@ -2,6 +2,7 @@ package com.mysite.sbb.comment.controller;
 
 import com.mysite.sbb.answer.Answer;
 import com.mysite.sbb.answer.service.AnswerService;
+import com.mysite.sbb.comment.Coment;
 import com.mysite.sbb.comment.ComentForm;
 import com.mysite.sbb.comment.service.ComentService;
 import com.mysite.sbb.question.Question;
@@ -10,6 +11,7 @@ import com.mysite.sbb.user.SiteUser;
 import com.mysite.sbb.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 
@@ -60,15 +63,12 @@ public class ComentController {
         return String.format("redirect:/question/detail/%s", id);
     }
 
-    /**
-     * @param model
-     * @param id
-     * @param comentForm
-     * @param bindingResult
-     * @param principal     답변에 댓글을 다는 기능을 구현할려고 함.
-     *                      구현 예정
-     * @return
-     */
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/create/answer/{id}")
+    public String createAnswerComent(ComentForm comentForm) {
+        return "comment_form";
+    }
+
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create/answer/{id}")
     public String createAnswerComent(Model model, @PathVariable("id") Integer id,
@@ -77,6 +77,51 @@ public class ComentController {
         Answer answer = answerService.getAnswer(id);
         SiteUser user = userService.getUser(principal.getName());
 
-        return null;
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("question", answer.getQuestion());
+            return "question_detail";
+        }
+        comentService.createAnswerComent(answer, comentForm.getContent(), user);
+
+        return String.format("redirect:/question/detail/%s", answer.getQuestion().getId());
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/modify/{id}")
+    public String CommentUpdate(ComentForm comentForm, @PathVariable("id") Integer id, Principal principal) {
+        Coment coment = comentService.getComent(id);
+        if (!coment.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
+        }
+
+        comentForm.setContent(coment.getContent());
+
+        return "comment_form";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/modify/{id}")
+    public String CommentUpdate(@Valid ComentForm comentForm, BindingResult bindingResult, Principal principal,
+                                @PathVariable("id") Integer id) {
+        if (bindingResult.hasErrors()) {
+            return "comment_form";
+        }
+
+        Coment coment = comentService.getComent(id);
+
+        if (!coment.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
+
+        comentService.modify(coment, comentForm.getContent());
+        Question question;
+        if (coment.getQuestion() == null) {
+            question = coment.getAnswer().getQuestion();
+        } else {
+            question = coment.getQuestion();
+        }
+
+        return String.format("redirect:/question/detail/%s", question.getId());
     }
 }
