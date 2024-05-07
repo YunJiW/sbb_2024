@@ -23,7 +23,7 @@ import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/comment")
+@RequestMapping("/coment")
 public class ComentController {
 
     private final QuestionService questionService;
@@ -33,7 +33,8 @@ public class ComentController {
     private final UserService userService;
 
 
-    @GetMapping("/create")
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/create/question/{id}")
     public String createQuestionComent(ComentForm comentForm) {
         return "comment_form";
     }
