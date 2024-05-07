@@ -2,6 +2,7 @@ package com.mysite.sbb.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mysite.sbb.answer.Answer;
+import com.mysite.sbb.comment.Coment;
 import com.mysite.sbb.question.Question;
 import com.mysite.sbb.recommand.AnswerReco;
 import com.mysite.sbb.recommand.QuestionReco;
@@ -32,6 +33,8 @@ public class SiteUser {
     private String email;
 
 
+
+
     @JsonIgnore
     @OneToMany(mappedBy = "author")
     List<Question> questionList = new ArrayList<>();
@@ -47,6 +50,10 @@ public class SiteUser {
     @JsonIgnore
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
     List<AnswerReco> answerRecoList = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "author",cascade = CascadeType.REMOVE)
+    List<Coment> comentList = new ArrayList<>();
 
 
 

@@ -3,6 +3,7 @@ package com.mysite.sbb.comment;
 
 import com.mysite.sbb.answer.Answer;
 import com.mysite.sbb.question.Question;
+import com.mysite.sbb.user.SiteUser;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,9 +32,13 @@ public class Coment {
     @ManyToOne(fetch = FetchType.LAZY)
     private Answer answer;
 
-    public Coment(String content, LocalDateTime createDate) {
+    @ManyToOne(fetch = FetchType.LAZY)
+    private SiteUser author;
+
+    public Coment(String content, LocalDateTime createDate,SiteUser author) {
         this.content = content;
         this.createDate = createDate;
+        this.author = author;
     }
 
     public void AddQuestion(Question question){
