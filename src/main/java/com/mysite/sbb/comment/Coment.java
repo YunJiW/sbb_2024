@@ -51,6 +51,7 @@ public class Coment {
 
     public void updateComent(String content){
         this.content = content;
+        modifyDate = LocalDateTime.now();
     }
 
 }
