@@ -2,7 +2,13 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <div layout:fragment="content" class="container my-3">
-    <div class="col-6"> 내 정보 </div>
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">내 정보</h5>
+            <p>유저 이름 :</p><p class="card-text" th:text="${SiteUser.username}"></p>
+            <p>유저 이메일 : </p><p class="card-text" th:text="${SiteUser.email}"></p>
+        </div>
+    </div>
 
     <!--
     내가 작성한 질문들 리스트 나오게
@@ -31,6 +37,8 @@
         </tbody>
     </table>
     <!--작성한 질문 끝-->
+
+    <div class="p-10"></div>
 
     <!--
     내가 작성한 답변들 리스트 나오게.
