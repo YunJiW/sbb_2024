@@ -5,3 +5,8 @@ textarea {
 input[type=submit] {
     margin-top:10px;
 }
+
+a {
+    text-decoration: none;
+    color: black;
+}
