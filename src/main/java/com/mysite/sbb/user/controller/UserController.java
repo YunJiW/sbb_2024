@@ -1,5 +1,7 @@
 package com.mysite.sbb.user.controller;
 
+import com.mysite.sbb.answer.Answer;
+import com.mysite.sbb.answer.service.AnswerService;
 import com.mysite.sbb.question.Question;
 import com.mysite.sbb.question.service.QuestionService;
 import com.mysite.sbb.user.SiteUser;
@@ -30,6 +32,8 @@ public class UserController {
     private final UserService userService;
 
     private final QuestionService questionService;
+
+    private final AnswerService answerService;
 
     @GetMapping("/signup")
     public String signup(UserCreateForm userCreateForm) {
@@ -74,12 +78,14 @@ public class UserController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/me")
     public String me(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
-                     Principal principal) {
+                     @RequestParam(value = "page2", defaultValue = "0") int page2, Principal principal) {
         SiteUser user = userService.getUser(principal.getName());
 
         Page<Question> paging = questionService.getUserQuestionList(page, user.getId());
+        Page<Answer> answerPage = answerService.getUserAnswerList(page2, user.getId());
         model.addAttribute("SiteUser", user);
         model.addAttribute("paging", paging);
+        model.addAttribute("answerPaging", answerPage);
         return "member_me";
     }
 

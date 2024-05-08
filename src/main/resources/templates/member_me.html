@@ -46,6 +46,7 @@
                 </a>
             </li>
             <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+                th:if="${page >= paging.number-5 and page <= paging.number+5}"
                 th:classappend="${page == paging.number} ? 'active'"
                 class="page-item">
                 <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
@@ -74,7 +75,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="text-center" th:each="answer, loop:${SiteUser.answerList}">
+        <tr class="text-center" th:each="answer, loop:${answerPaging}">
             <td class="text-start">
                 <a th:href="@{|/question/detail/${answer.question.id}|}" th:utext="${answer.content}"></a>
             </td>
@@ -83,6 +84,29 @@
         </tr>
         </tbody>
     </table>
+    <!-- 페이징처리 시작 -->
+    <div th:if="${!answerPaging.isEmpty()}">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${!answerPaging.hasPrevious} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{|?page2=${answerPaging.number-1}|}">
+                    <span>이전</span>
+                </a>
+            </li>
+            <li th:each="page2: ${#numbers.sequence(0, answerPaging.totalPages-1)}"
+                th:if="${page2 >= answerPaging.number-5 and page2 <= answerPaging.number+5}"
+                th:classappend="${page2 == answerPaging.number} ? 'active'"
+                class="page-item">
+                <a th:text="${page2}" class="page-link" th:href="@{|?page2=${page2}|}"></a>
+            </li>
+            <li class="page-item" th:classappend="${!answerPaging.hasNext} ? 'disabled'">
+                <a class="page-link" th:href="@{|?page2=${answerPaging.number+1}|}">
+                    <span>다음</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- 페이징처리 끝 -->
 </div>
 
 
