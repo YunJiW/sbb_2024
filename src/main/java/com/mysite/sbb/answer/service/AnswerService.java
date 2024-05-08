@@ -56,6 +56,12 @@ public class AnswerService {
         return answerRepository.findAllByQuestion(question, pageable);
     }
 
+    public Page<Answer> getUserAnswerList(int page, Long id) {
+        PageRequest pageRequest = PageRequest.of(page, 5);
+
+        return answerRepository.findByAuthorId(pageRequest, id);
+    }
+
     @Transactional
     public void modify(Answer answer, String content) {
         answer.update(content);

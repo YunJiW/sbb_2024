@@ -3,6 +3,7 @@ package com.mysite.sbb;
 import com.mysite.sbb.question.Question;
 import com.mysite.sbb.question.repository.QuestionRepository;
 import com.mysite.sbb.question.service.QuestionService;
+import com.mysite.sbb.user.SiteUser;
 import com.mysite.sbb.user.service.UserService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -29,14 +30,17 @@ public class TestDataInit {
 
         questionRepository.save(question);
 
+        //테스트용회원
+        userService.create("admin","ss@naver.com","1234");
+        SiteUser admin = userService.getUser("admin");
+
         for (int idx = 1; idx <= 300; idx++) {
             String subject = String.format("테스트 데이터 입니다:[%03d]", idx);
             String content = "내용무";
-            questionService.create(subject, content,null);
+            questionService.create(subject, content,admin);
         }
 
-        //테스트용회원
-        userService.create("admin","ss@naver.com","1234");
+
 
     }
 }
