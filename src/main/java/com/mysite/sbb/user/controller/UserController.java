@@ -1,5 +1,6 @@
 package com.mysite.sbb.user.controller;
 
+import com.mysite.sbb.user.SiteUser;
 import com.mysite.sbb.user.UserCreateForm;
 import com.mysite.sbb.user.service.UserService;
 import jakarta.validation.Valid;
@@ -8,10 +9,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.security.Principal;
 
 @RequiredArgsConstructor
 @Controller
@@ -63,7 +67,9 @@ public class UserController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/me")
-    public String me() {
+    public String me(Model model, Principal principal) {
+        SiteUser user = userService.getUser(principal.getName());
+        model.addAttribute("SiteUser", user);
         return "member_me";
     }
 

@@ -7,6 +7,8 @@
     <!--
     내가 작성한 질문들 리스트 나오게
     -->
+    <h3 class="text-center">내가 작성한 질문들 리스트</h3>
+
     <table class="table">
         <thead class="table-dark">
         <tr class="text-center">
@@ -18,7 +20,7 @@
         <tbody>
         <tr class="text-center" th:each="question, loop:${SiteUser.questionList}">
             <td class="text-start">
-                <a th:href="@{|/question/detail/${question.id}|}" th:text="{question.subject"></a>
+                <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a>
                 <span class="text-danger small ms-2"
                       th:if="${#lists.size(question.answerList)>0}"
                       th:text="${#lists.size(question.answerList)}"></span>
@@ -30,10 +32,28 @@
     </table>
     <!--작성한 질문 끝-->
 
-
     <!--
     내가 작성한 답변들 리스트 나오게.
     -->
+    <h3 class="text-center">내가 작성한 답변들</h3>
+    <table class="table">
+        <thead class="table-dark">
+        <tr class="text-center">
+            <th style="width:50%">내용</th>
+            <th>글쓴이</th>
+            <th>작성일시</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="text-center" th:each="answer, loop:${SiteUser.answerList}">
+            <td class="text-start">
+                <a th:href="@{|/question/detail/${answer.question.id}|}" th:utext="${answer.content}"></a>
+            </td>
+            <td><span th:text="${answer.author.username}"></span></td>
+            <td th:text="${#temporals.format(answer.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 </html>
