@@ -41,11 +41,18 @@ public class QuestionService {
         questionRepository.delete(question);
     }
 
-    public Page<Question> getList(int page,String sub) {
+    public Page<Question> getList(int page, String sub) {
         Pageable pageable = PageRequest.of(page, 10);
 
 
-        return questionRepository.search(sub,pageable);
+        return questionRepository.search(sub, pageable);
+    }
+
+    public Page<Question> getUserQuestionList(int page, Long id) {
+
+        PageRequest pageable = PageRequest.of(page, 5);
+
+        return questionRepository.findByAuthorId(pageable, id);
     }
 
 

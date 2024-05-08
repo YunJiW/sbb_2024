@@ -24,7 +24,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="text-center" th:each="question, loop:${SiteUser.questionList}">
+        <tr class="text-center" th:each="question, loop:${paging}">
             <td class="text-start">
                 <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a>
                 <span class="text-danger small ms-2"
@@ -36,7 +36,28 @@
         </tr>
         </tbody>
     </table>
-    <!--작성한 질문 끝-->
+    <!-- 페이징처리 시작 -->
+    <div th:if="${!paging.isEmpty()}">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{|?page=${paging.number-1}|}">
+                    <span>이전</span>
+                </a>
+            </li>
+            <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+                th:classappend="${page == paging.number} ? 'active'"
+                class="page-item">
+                <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
+            </li>
+            <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+                <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
+                    <span>다음</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- 페이징처리 끝 -->
 
     <div class="p-10"></div>
 
@@ -63,5 +84,6 @@
         </tbody>
     </table>
 </div>
+
 
 </html>
