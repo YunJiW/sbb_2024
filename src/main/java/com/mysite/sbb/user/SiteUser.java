@@ -33,14 +33,12 @@ public class SiteUser {
     private String email;
 
 
-
-
     @JsonIgnore
     @OneToMany(mappedBy = "author")
     List<Question> questionList = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     List<QuestionReco> questionRecoList = new ArrayList<>();
 
     @JsonIgnore
@@ -48,13 +46,16 @@ public class SiteUser {
     List<Answer> answerList = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     List<AnswerReco> answerRecoList = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "author",cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.REMOVE)
     List<Coment> comentList = new ArrayList<>();
 
+    public void updatePW(String pw) {
+        password = pw;
+    }
 
 
 }

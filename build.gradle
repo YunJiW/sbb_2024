@@ -31,6 +31,7 @@ dependencies {
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 	// https://mvnrepository.com/artifact/org.commonmark/commonmark
 	implementation group: 'org.commonmark', name: 'commonmark', version: '0.22.0'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 
 	//QueryDsl 추가
 	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
