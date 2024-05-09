@@ -1,0 +1,41 @@
+<html layout:decorate="~{layout}">
+<main layout:fragment="content" class="container my-3">
+    <form th:action method="post" th:object="${userPasswordFindForm}" onsubmit="FindPasswordForm__submit(this); return false;">
+        <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+        <h2 class="border-bottom py-2">비밀번호 찾기</h2>
+        <div class="mb-3">
+            <label lclass="form-label">사용자ID</label>
+            <input type="text" th:field="*{username}" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">이메일</label>
+            <input type="text" th:field="*{email}" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">비밀번호찾기</button>
+    </form>
+
+    <script th:inline="javascript">
+    const emailRegExp = new RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i);
+
+    function FindPasswordForm__submit(form) {
+      form.email.value = form.email.value.trim();
+      form.username.value = form.username.value.trim();
+
+      if (form.username.value.length  == 0) {
+        alert('사용자 아이디를 입력해주세요');
+        form.username.focus();
+        return false;
+      }
+
+      // 이메일 정규식 표현 검사
+      if (!emailRegExp.test(form.email.value)) {
+        alert('이메일 형식을 지켜야 합니다.');
+        form.email.focus();
+        return false;
+      }
+
+      form.submit();
+    }
+  </script>
+</main>
+</html>

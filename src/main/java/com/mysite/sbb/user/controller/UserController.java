@@ -6,6 +6,7 @@ import com.mysite.sbb.question.Question;
 import com.mysite.sbb.question.service.QuestionService;
 import com.mysite.sbb.user.SiteUser;
 import com.mysite.sbb.user.UserCreateForm;
+import com.mysite.sbb.user.UserPasswordFindForm;
 import com.mysite.sbb.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 
@@ -87,6 +89,33 @@ public class UserController {
         model.addAttribute("paging", paging);
         model.addAttribute("answerPaging", answerPage);
         return "member_me";
+    }
+
+    @PreAuthorize("isAnonymous()")
+    @PostMapping("/find")
+    public String findPw(Model model, UserPasswordFindForm userPasswordFindForm
+            , BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            return "/user/find";
+        }
+
+        SiteUser user = userService.getUser(userPasswordFindForm.getUsername());
+        if (user == null) {
+            bindingResult.reject("UserNotFound", "일치하는 사용자가 없습니다.");
+            return "/user/find";
+        }
+
+        if (!user.getEmail().equals(userPasswordFindForm.getEmail())) {
+            bindingResult.reject("EmailNotCorrect", "이메일이 일치하지않습니다.");
+            return "/user/find";
+        }
+        String tempPw = userService.SetTempPw(user);
+
+        userService.sendEmail(user.getEmail(), user.getUsername(), tempPw);
+
+        redirectAttributes.addFlashAttribute("successMessage", "임시 비밀번호가 이메일로 전송되엇습니다.");
+        return "redirect:/user/login";
     }
 
 }

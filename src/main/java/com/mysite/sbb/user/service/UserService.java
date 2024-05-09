@@ -8,6 +8,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.security.SecureRandom;
 import java.util.Optional;
@@ -24,6 +25,7 @@ public class UserService {
 
     private static final String ADMIN_ADDRESS = "gksms1495@naver.com";
 
+    @Transactional
     public SiteUser create(String username, String email, String password) {
         SiteUser user = new SiteUser();
         user.setUsername(username);
@@ -54,6 +56,8 @@ public class UserService {
         javaMailSender.send(message);
     }
 
+
+    @Transactional
     public String SetTempPw(SiteUser user) {
         String tempPw = createRandomPW();
         user.updatePW(passwordEncoder.encode(tempPw));
