@@ -52,7 +52,7 @@ public class QuestionController {
 
     @GetMapping("/detail/{id}")
     public String detail(Model model, @PathVariable("id") Integer id,
-                         AnswerForm answerForm,@RequestParam(value = "answerPage",defaultValue = "0")int answerPage) {
+                         AnswerForm answerForm,@RequestParam(value = "page",defaultValue = "0")int answerPage) {
         Question question = questionService.getQuestion(id);
 
         Page<Answer> answerPaging = answerService.getList(question, answerPage);

@@ -45,7 +45,8 @@
                        th:href="@{|/coment/modify/${coment.id}|}" class="small">수정</a>,
                     <a sec:authorize="isAuthenticated()"
                        th:if="${#authentication.getPrincipal().getUsername() == coment.author.username}"
-                       href="javascript:void(0);" class="small delete" th:data-uri="@{|/coment/delete/${coment.id}|}">삭제</a>
+                       href="javascript:void(0);" class="small delete"
+                       th:data-uri="@{|/coment/delete/${coment.id}|}">삭제</a>
                 </div>
             </div>
             <div>
@@ -99,7 +100,8 @@
                        th:href="@{|/coment/modify/${coment.id}|}" class="small">수정</a>,
                     <a sec:authorize="isAuthenticated()"
                        th:if="${#authentication.getPrincipal().getUsername() == coment.author.username}"
-                       href="javascript:void(0);" class="small delete" th:data-uri="@{|/coment/delete/${coment.id}|}">삭제</a>
+                       href="javascript:void(0);" class="small delete"
+                       th:data-uri="@{|/coment/delete/${coment.id}|}">삭제</a>
                 </div>
             </div>
             <div>
@@ -112,7 +114,7 @@
     <div th:if="${!answerPaging.isEmpty()}">
         <ul class="pagination justify-content-center">
             <li class="page-item" th:classappend="${!answerPaging.hasPrevious} ? 'disabled'">
-                <a class="page-link" href="javascript:void(0)" th:data-page="${answerPaging.number - 1}">
+                <a class="page-link" th:href="@{|?page=${answerPaging.number-1}|}">
                     <span>이전</span>
                 </a>
             </li>
@@ -120,10 +122,10 @@
                 th:if="${page >= answerPaging.number-5 and page <= answerPaging.number+5}"
                 th:classappend="${page == answerPaging.number} ? 'active'"
                 class="page-item">
-                <a th:text="${page}" class="page-link" href="javascript:void(0)" th:data-page="${page}"></a>
+                <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
             </li>
             <li class="page-item" th:classappend="${!answerPaging.hasNext} ? 'disabled'">
-                <a class="page-link" href="javascript:void(0)" th:data-page="${answerPaging.number+1}">
+                <a class="page-link"  th:href="@{|?page=${answerPaging.number+1}|}">
                     <span>다음</span>
                 </a>
             </li>
@@ -158,6 +160,7 @@ Array.from(recommend_elements).forEach(function(element) {
         };
     });
 });
+
 </script>
 
 </html>

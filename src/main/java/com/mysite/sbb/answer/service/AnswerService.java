@@ -52,8 +52,8 @@ public class AnswerService {
 
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.asc("createDate"));
-        Pageable pageable = PageRequest.of(page, 10);
-        return answerRepository.findAllByQuestion(question, pageable);
+        Pageable pageable = PageRequest.of(page, 5);
+        return answerRepository.findByQuestion(question, pageable);
     }
 
     public Page<Answer> getUserAnswerList(int page, Long id) {
