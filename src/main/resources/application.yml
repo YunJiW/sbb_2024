@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    include: secret
   h2:
     console:
       enabled: true
