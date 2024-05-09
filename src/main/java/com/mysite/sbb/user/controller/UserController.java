@@ -92,6 +92,12 @@ public class UserController {
     }
 
     @PreAuthorize("isAnonymous()")
+    @GetMapping("/find")
+    public String findPw(UserPasswordFindForm userPasswordFindForm) {
+        return "pw_find";
+    }
+
+    @PreAuthorize("isAnonymous()")
     @PostMapping("/find")
     public String findPw(Model model, UserPasswordFindForm userPasswordFindForm
             , BindingResult bindingResult, RedirectAttributes redirectAttributes) {
