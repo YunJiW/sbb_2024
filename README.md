@@ -3,6 +3,10 @@
  - 프론트 부분은 타임리프를 사용하여 진행
    - 나중에 추가적으로 기능을 넣을 때 javaScript정도 사용해볼 예정
 
+ERD 구상도
+![ERD](https://github.com/YunJiW/sbb_2024/assets/54807231/9adb7aaa-8436-41a1-ab14-23feec305e6e)
+
+
 - 회원가입 추가
   - 유저 데이터 저장용 repo 추가
   - 서비스 처리용 UserService 추가
