@@ -88,6 +88,7 @@ public class UserController {
         model.addAttribute("SiteUser", user);
         model.addAttribute("paging", paging);
         model.addAttribute("answerPaging", answerPage);
+        log.info("내정보 화면 실행");
         return "member_me";
     }
 

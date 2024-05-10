@@ -2,14 +2,19 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <div layout:fragment="content" class="container my-3">
-</div>
-    <div class="card" style="width: 18rem;">
+    <div class="card mx-auto my-5" style="width: 18rem;">
+        <h5 class="card-header text-center">내 정보</h5>
         <div class="card-body">
-            <h5 class="card-title">내 정보</h5>
-            <p>유저 이름 :</p><p class="card-text" th:text="${SiteUser.username}"></p>
-            <p>유저 이메일 : </p><p class="card-text" th:text="${SiteUser.email}"></p>
+            <p class="text-center">유저 이름 : <span th:text="${SiteUser.username}"></span></p>
+            <p class="text-center">유저 이메일 : <span th:text="${SiteUser.email}"></span></p>
+            <div class="text-center">
+                <a th:href="@{/user/changePW}">
+                    <button class="btn btn-primary mt-3">비밀번호 변경</button>
+                </a>
+            </div>
         </div>
     </div>
+
 
     <!--
     내가 작성한 질문들 리스트 나오게
