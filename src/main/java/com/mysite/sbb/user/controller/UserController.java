@@ -7,6 +7,7 @@ import com.mysite.sbb.question.service.QuestionService;
 import com.mysite.sbb.user.SiteUser;
 import com.mysite.sbb.user.UserCreateForm;
 import com.mysite.sbb.user.UserPasswordFindForm;
+import com.mysite.sbb.user.newPwForm;
 import com.mysite.sbb.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -100,22 +101,22 @@ public class UserController {
 
     @PreAuthorize("isAnonymous()")
     @PostMapping("/find")
-    public String findPw(Model model, UserPasswordFindForm userPasswordFindForm
+    public String findPw(Model model, @Valid UserPasswordFindForm userPasswordFindForm
             , BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
-            return "/user/find";
+            return "user/find";
         }
 
         SiteUser user = userService.getUser(userPasswordFindForm.getUsername());
         if (user == null) {
             bindingResult.reject("UserNotFound", "일치하는 사용자가 없습니다.");
-            return "/user/find";
+            return "user/find";
         }
 
         if (!user.getEmail().equals(userPasswordFindForm.getEmail())) {
             bindingResult.reject("EmailNotCorrect", "이메일이 일치하지않습니다.");
-            return "/user/find";
+            return "user/find";
         }
         String tempPw = userService.SetTempPw(user);
 
@@ -123,6 +124,40 @@ public class UserController {
 
         redirectAttributes.addFlashAttribute("successMessage", "임시 비밀번호가 이메일로 전송되엇습니다.");
         return "redirect:/user/login";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/changePw")
+    public String ChangePw(newPwForm newPwForm) {
+        return "newPw";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/changePw")
+    public String ChangePw(@Valid newPwForm newPwForm, BindingResult bindingResult,
+                           Principal principal) {
+
+        SiteUser user = userService.getUser(principal.getName());
+
+        if (bindingResult.hasErrors()) {
+            return "newPw";
+        }
+
+
+        log.info("비밀번호가 맞는지 확인");
+        if (!userService.isPwMatch(user, newPwForm.getPassword())) {
+            bindingResult.reject("PasswordNotCorrect", "비밀번호가 일치하지 않습니다.");
+            return "newPw";
+        }
+
+        log.info("새로운 비밀번호와 비밀번호 확인이 같은지");
+        if (!newPwForm.getNewPassword().equals(newPwForm.getCheckPassword())) {
+            bindingResult.reject("NewPasswordInCorrect", "2개의 패스워드가 일치하지않습니다.");
+            return "newPw";
+        }
+
+        userService.UpdatePw(user, newPwForm.getNewPassword());
+        return "redirect:/user/me";
     }
 
 }
