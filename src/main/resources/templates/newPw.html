@@ -1,0 +1,21 @@
+<html layout:decorate="~{layout}">
+<main layout:fragment="content" class="container my-3">
+    <form th:action method="post" th:object="${newPwForm}" onsubmit="FindPasswordForm__submit(this); return false;">
+        <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+        <h2 class="border-bottom py-2">비밀번호 변경</h2>
+        <div class="mb-3">
+            <label lclass="form-label">기존 비밀번호</label>
+            <input type="text" th:field="*{password}" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label lclass="form-label">새로운 비밀번호</label>
+            <input type="text" th:field="*{newPassword}" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label lclass="form-label">비밀번호 확인</label>
+            <input type="text" th:field="*{CheckPassword}" class="form-control">
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">비밀번호 변경</button>
+    </form>
