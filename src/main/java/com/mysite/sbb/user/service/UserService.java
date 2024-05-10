@@ -4,6 +4,7 @@ import com.mysite.sbb.exception.DataNotFoundException;
 import com.mysite.sbb.user.SiteUser;
 import com.mysite.sbb.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +17,7 @@ import java.util.Random;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class UserService {
 
     private final UserRepository userRepository;
@@ -56,11 +58,16 @@ public class UserService {
         javaMailSender.send(message);
     }
 
+    @Transactional
+    public void UpdatePw(SiteUser user, String pw) {
+        user.updatePW(passwordEncoder.encode(pw));
+    }
+
 
     @Transactional
     public String SetTempPw(SiteUser user) {
         String tempPw = createRandomPW();
-        user.updatePW(passwordEncoder.encode(tempPw));
+        UpdatePw(user, tempPw);
 
         return tempPw;
     }
@@ -78,5 +85,14 @@ public class UserService {
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint,
                         StringBuilder::append)
                 .toString();
+    }
+
+    public boolean isPwMatch(SiteUser user, String pw) {
+        
+        if (passwordEncoder.matches(pw,user.getPassword())) {
+            log.info("일치");
+            return true;
+        }
+        return false;
     }
 }

@@ -1,6 +1,6 @@
 <html layout:decorate="~{layout}">
 <main layout:fragment="content" class="container my-3">
-    <form th:action method="post" th:object="${newPwForm}" onsubmit="FindPasswordForm__submit(this); return false;">
+    <form th:action method="post" th:object="${newPwForm}" onsubmit="PasswordForm__submit(this); return false;">
         <div th:replace="~{form_errors :: formErrorsFragment}"></div>
         <h2 class="border-bottom py-2">비밀번호 변경</h2>
         <div class="mb-3">
@@ -19,3 +19,32 @@
 
         <button type="submit" class="btn btn-primary">비밀번호 변경</button>
     </form>
+
+    <script th:inline="javascript">
+    function PasswordForm__submit(form) {
+      form.password.value = form.password.value.trim();
+      form.newPassword.value = form.newPassword.value.trim();
+      form.CheckPassword.value = form.CheckPassword.value.trim();
+
+      if (form.password.value.length  == 0) {
+        alert('기존 비밀번호를 입력해주세요');
+        form.username.focus();
+        return false;
+      }
+      if (form.newPassword.value.length  == 0) {
+        alert('새로운 비밀번호를 입력해주세요');
+        form.username.focus();
+        return false;
+      }
+
+      if (form.CheckPassword.value.length  == 0) {
+        alert('비밀번호 확인은 필수입니다.');
+        form.username.focus();
+        return false;
+      }
+
+
+      form.submit();
+    </script>
+
+</main>
