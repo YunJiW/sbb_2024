@@ -3,7 +3,7 @@ spring:
     include: secret
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://127.0.0.1:3306/sbb__dev?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul
+    url: jdbc:mariadb://172.17.0.1:3306/sbb__dev?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul
     username: lldj
     password: ENC(2oRZV74tTa+X80FVOlmK1b8ypFPwfysR)
   jpa:
